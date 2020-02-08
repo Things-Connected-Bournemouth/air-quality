@@ -3,15 +3,22 @@
         {
             "name": "Win32",
             "includePath": [
+                "${workspaceFolder}\\**",
+                "C:\\Users\\mash_\\AppData\\Local\\Arduino15\\packages\\arduino\\tools\\arm-none-eabi-gcc\\4.8.3-2014q1\\arm-none-eabi\\include",
                 "C:\\Users\\mash_\\AppData\\Local\\Arduino15\\packages\\TleraCorp\\hardware\\stm32l0\\0.0.10\\**"
             ],
-            "forcedInclude": [
-                "C:\\Users\\mash_\\AppData\\Local\\Arduino15\\packages\\TleraCorp\\hardware\\stm32l0\\0.0.10\\cores\\arduino\\Arduino.h"
+            "defines": [
+                "_DEBUG",
+                "UNICODE",
+                "_UNICODE"
             ],
-            "intelliSenseMode": "msvc-x64",
             "compilerPath": "C:\\Program Files\\LLVM\\bin\\clang.exe",
             "cStandard": "c11",
-            "cppStandard": "c++17"
+            "cppStandard": "c++17",
+            "intelliSenseMode": "clang-x64",
+            "forcedInclude": [
+                "C:\\Users\\mash_\\AppData\\Local\\Arduino15\\packages\\TleraCorp\\hardware\\stm32l0\\0.0.10\\cores\\arduino\\Arduino.h"
+            ]
         }
     ],
     "version": 4

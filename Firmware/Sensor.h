@@ -10,6 +10,11 @@ typedef struct txData{
       byte dataToSend[51];
       int dataToSendIndex;
 };
+
+typedef struct gas{
+      int16_t working;
+      int16_t auxiliary;
+};
   
 
 class Sensor

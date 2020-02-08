@@ -28,12 +28,12 @@ void Sensor::begin(){
 
     ads.begin();
 
-    // ads.setGain(GAIN_TWOTHIRDS);  +/- 6.144V  1 bit = 0.1875mV (default)
-    // ads.setGain(GAIN_ONE);        +/- 4.096V  1 bit = 0.125mV
-    // ads.setGain(GAIN_TWO);        +/- 2.048V  1 bit = 0.0625mV
-    // ads.setGain(GAIN_FOUR);       +/- 1.024V  1 bit = 0.03125mV
+    // // ads.setGain(GAIN_TWOTHIRDS);  +/- 6.144V  1 bit = 0.1875mV (default)
+    // // ads.setGain(GAIN_ONE);        +/- 4.096V  1 bit = 0.125mV
+    // // ads.setGain(GAIN_TWO);        +/- 2.048V  1 bit = 0.0625mV
+    // // ads.setGain(GAIN_FOUR);       +/- 1.024V  1 bit = 0.03125mV
     ads.setGain(GAIN_EIGHT);      //+/- 0.512V  1 bit = 0.015625mV
-    // ads.setGain(GAIN_SIXTEEN);    +/- 0.256V  1 bit = 0.0078125mV 
+    // // ads.setGain(GAIN_SIXTEEN);    +/- 0.256V  1 bit = 0.0078125mV 
     
 
     int16_t temp = getTemperature();
@@ -123,55 +123,51 @@ txData Sensor::transmit(){
     dataToSend[i] = 0x00;
   }
 
-  // int16_t battery = getBatteryAsInt();
-  // int16_t temp = getTemperature();
-  // int16_t humidity = getRelHumidity();
-  // int16_t turbidity = getOP1AsInt();
-  // int16_t pressure = getOP2AsInt();
-
-
-  uint16_t gas = getGas();
+  int16_t battery = getBatteryAsInt();
+  int16_t temp = getTemperature();
+  int16_t humidity = getRelHumidity();
+  gas gas_result = getGas();
   
   int dataToSendIndex = 0;
 
-  // dataToSend[dataToSendIndex]= 0x01;  // put reason code at beginning of the message
-  // dataToSendIndex++;
+  dataToSend[dataToSendIndex]= 0x01;  // put reason code at beginning of the message
+  dataToSendIndex++;
 
-  // dataToSend[dataToSendIndex] =   (byte)(range >> 8) & 0xFF;        // x(MSB)
-  // dataToSendIndex++;
+  dataToSend[dataToSendIndex] =   (byte)(range >> 8) & 0xFF;        // x(MSB)
+  dataToSendIndex++;
   
-  // dataToSend[dataToSendIndex] =   (byte) range & 0xFF;              // x(LSB)
-  // dataToSendIndex++;
+  dataToSend[dataToSendIndex] =   (byte) range & 0xFF;              // x(LSB)
+  dataToSendIndex++;
   
-  // dataToSend[dataToSendIndex] =  (byte)(temp >> 8) & 0xFF;                // x(MSB)
-  // dataToSendIndex++;
+  dataToSend[dataToSendIndex] =  (byte)(temp >> 8) & 0xFF;                // x(MSB)
+  dataToSendIndex++;
 
-  // dataToSend[dataToSendIndex] =  (byte) temp & 0xFF;                      // x(LSB)
-  // dataToSendIndex++;
+  dataToSend[dataToSendIndex] =  (byte) temp & 0xFF;                      // x(LSB)
+  dataToSendIndex++;
 
-  // dataToSend[dataToSendIndex] =  (byte)(humidity >> 8) & 0xFF;                // x(MSB)
-  // dataToSendIndex++;
+  dataToSend[dataToSendIndex] =  (byte)(humidity >> 8) & 0xFF;                // x(MSB)
+  dataToSendIndex++;
 
-  // dataToSend[dataToSendIndex] =  (byte) humidity & 0xFF;                      // x(LSB)
-  // dataToSendIndex++;
+  dataToSend[dataToSendIndex] =  (byte) humidity & 0xFF;                      // x(LSB)
+  dataToSendIndex++;
 
-  // dataToSend[dataToSendIndex] =   (byte)(battery >> 8) & 0xFF;            // x(MSB)
-  // dataToSendIndex++;
+  dataToSend[dataToSendIndex] =   (byte)(battery >> 8) & 0xFF;            // x(MSB)
+  dataToSendIndex++;
   
-  // dataToSend[dataToSendIndex] =   (byte) battery & 0xFF;                  // x(LSB)
-  // dataToSendIndex++;
+  dataToSend[dataToSendIndex] =   (byte) battery & 0xFF;                  // x(LSB)
+  dataToSendIndex++;
 
-  // dataToSend[dataToSendIndex] =   (byte)(turbidity >> 8) & 0xFF;            // x(MSB)
-  // dataToSendIndex++;
+  dataToSend[dataToSendIndex] =   (byte)(gas_result.working >> 8) & 0xFF;            // x(MSB)
+  dataToSendIndex++;
 
-  // dataToSend[dataToSendIndex] =   (byte) turbidity & 0xFF;                  // x(LSB)
-  // dataToSendIndex++;
+  dataToSend[dataToSendIndex] =   (byte) gas_result.working & 0xFF;                  // x(LSB)
+  dataToSendIndex++;
 
-  // dataToSend[dataToSendIndex] =   (byte)(pressure >> 8) & 0xFF;            // x(MSB)
-  // dataToSendIndex++;
+  dataToSend[dataToSendIndex] =   (byte)(gas_result.auxiliary >> 8) & 0xFF;            // x(MSB)
+  dataToSendIndex++;
 
-  // dataToSend[dataToSendIndex] =   (byte) pressure & 0xFF;                  // x(LSB)
-  // dataToSendIndex++;
+  dataToSend[dataToSendIndex] =   (byte) gas_result.auxiliary & 0xFF;                  // x(LSB)
+  dataToSendIndex++;
 
   txData data;
 
@@ -217,69 +213,12 @@ uint16_t Sensor::getBatteryAsInt(){
  
 }
 
-uint16_t Sensor::getOP1AsInt(){
-  
-  VDDA = STM32L0.getVDDA();
-  VBUS = STM32L0.getVBUS();
-
-  uint16_t RAWValue;
-
-  digitalWrite(PRESSURE_POWER, HIGH);
-  delay(500);
-  //Serial.print("VDDA = "); Serial.println(VDDA, 2); 
-  //if(VBUS ==  1)  Serial.println("USB Connected!"); 
-  RAWValue = analogRead(OP1_ADC);
-  ADCvalue = VDDA * ((float) RAWValue)/4095.0f; // is actually read
-  //Serial.print(" V, ADC input is "); Serial.print(ADCvalue, 3);Serial.print(" V");Serial.print(" RAW is ");Serial.println(RAWValue);
-  digitalWrite(PRESSURE_POWER, LOW);
-  Serial.print("OP1 Raw Value: "); Serial.println(RAWValue);
-  Serial.print("ADC Value: "); Serial.println(ADCvalue);
-  Serial.print("VDDA Value: "); Serial.println(VDDA);
-  
-  return RAWValue;
-
-}
-
-uint16_t Sensor::getOP2AsInt(){
-  
-  VDDA = STM32L0.getVDDA();
-  VBUS = STM32L0.getVBUS();
-
-  uint16_t RAWValue;
-
-  digitalWrite(TURBIDITY_POWER, HIGH);
-  delay(100);
- 
-  // Serial.print("VDDA = "); Serial.println(VDDA, 2); 
-  // if(VBUS ==  1)  Serial.println("USB Connected!");
-
-  long total = 0;
-  for (int i = 0;i<SAMPLES;i++){
-
-      total = total + analogRead(OP2_ADC);
-      //ADCvalue = VDDA * ((float) RAWValue)/4095.0f; // is actually read
-
-      // RAWValue = analogRead(TURBIDITY_ADC);
-      // ADCvalue = VDDA * ((float) RAWValue)/4095.0f; // is actually read
-      delay(10);
-
-      //Serial.print(" V, ADC input is "); Serial.print(ADCvalue, 3);Serial.print(" V");Serial.print(" RAW is ");Serial.println(RAWValue);
-
-
-  }
-  total = total / SAMPLES;
-  digitalWrite(TURBIDITY_POWER, LOW);
-  Serial.print("OP2 Raw Value: "); Serial.println(total);
-  return total;
-  //return RAWValue;
-
-}
-
-uint16_t Sensor::getGas(){
+gas Sensor::getGas(){
 
   int32_t adc0 = 0;  // we read from the ADC, we have a sixteen bit integer as a result
   int32_t adc1 = 0;  // we read from the ADC, we have a sixteen bit integer as a result
 
+  gas retVal;
 
   // digital averaging across 100 readings spaced at 10ms apart
   for (int i = 0; i < 100; ++i)
@@ -297,10 +236,14 @@ uint16_t Sensor::getGas(){
   voltage_adc0 = (adc0 * 0.015625);
   voltage_adc1 = (adc1 * 0.015625);
 
+  retVal.working = (int16_t)(voltage_adc0 * 100);
+  retVal.auxiliary = (int16_t)(voltage_adc1 * 100);
+
   Serial.print("Working Electrode  Voltage ADC0: "); Serial.println(voltage_adc0);
   Serial.print("Auxiliary Electrode Voltage ADC1: "); Serial.println(voltage_adc1);
+
   Serial.println();
-  return adc0;
+  return gas;
 
 }
 
