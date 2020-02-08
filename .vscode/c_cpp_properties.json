@@ -3,9 +3,11 @@
         {
             "name": "Win32",
             "includePath": [
+                // change to your user path C:\\Users\\yourUserName
                 "C:\\Users\\mash_\\AppData\\Local\\Arduino15\\packages\\TleraCorp\\hardware\\stm32l0\\0.0.10\\**"
             ],
             "forcedInclude": [
+                // change to your user path C:\\Users\\yourUserName
                 "C:\\Users\\mash_\\AppData\\Local\\Arduino15\\packages\\TleraCorp\\hardware\\stm32l0\\0.0.10\\cores\\arduino\\Arduino.h"
             ],
             "intelliSenseMode": "msvc-x64",
