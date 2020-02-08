@@ -1,0 +1,18 @@
+{
+    "configurations": [
+        {
+            "name": "Win32",
+            "includePath": [
+                "C:\\Users\\mash_\\AppData\\Local\\Arduino15\\packages\\TleraCorp\\hardware\\stm32l0\\0.0.10\\**"
+            ],
+            "forcedInclude": [
+                "C:\\Users\\mash_\\AppData\\Local\\Arduino15\\packages\\TleraCorp\\hardware\\stm32l0\\0.0.10\\cores\\arduino\\Arduino.h"
+            ],
+            "intelliSenseMode": "msvc-x64",
+            "compilerPath": "C:\\Program Files\\LLVM\\bin\\clang.exe",
+            "cStandard": "c11",
+            "cppStandard": "c++17"
+        }
+    ],
+    "version": 4
+}

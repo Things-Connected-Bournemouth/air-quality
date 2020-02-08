@@ -1,0 +1,6 @@
+{
+    "board": "TleraCorp:stm32l0:Grasshopper-L082CZ",
+    "configuration": "usb=cdc,dosfs=none,speed=32,opt=o3",
+    "sketch": "Firmware\\LORAWAN_BASE_V5.ino",
+    "port": "COM3"
+}
