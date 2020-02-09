@@ -1,4 +1,8 @@
-#include "global.h"
+
+#ifndef _LORA_H_
+#define _LORA_H_
+
+#include "config.h"
 #include "STM32L0.h"
 
 class Lora
@@ -27,3 +31,5 @@ class Lora
     int xVal;
 
 };
+
+#endif

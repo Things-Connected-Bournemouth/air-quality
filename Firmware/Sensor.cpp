@@ -13,6 +13,7 @@
 
 #define SAMPLES 100
 
+#define GAS_SAMPLES 20
 
 
 Sensor::Sensor(){}
@@ -221,7 +222,7 @@ gas Sensor::getGas(){
   gas retVal;
 
   // digital averaging across 100 readings spaced at 10ms apart
-  for (int i = 0; i < 100; ++i)
+  for (int i = 0; i < GAS_SAMPLES; ++i)
   {
 
      adc0 = adc0 + ads.readADC_SingleEnded(0);
@@ -230,8 +231,8 @@ gas Sensor::getGas(){
      
   }
 
-  adc0 = adc0/100;
-  adc1 = adc1/100;
+  adc0 = adc0/GAS_SAMPLES;
+  adc1 = adc1/GAS_SAMPLES;
   
   voltage_adc0 = (adc0 * 0.015625);
   voltage_adc1 = (adc1 * 0.015625);
@@ -243,7 +244,7 @@ gas Sensor::getGas(){
   Serial.print("Auxiliary Electrode Voltage ADC1: "); Serial.println(voltage_adc1);
 
   Serial.println();
-  return gas;
+  return retVal;
 
 }
 

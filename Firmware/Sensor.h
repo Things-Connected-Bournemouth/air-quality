@@ -1,4 +1,4 @@
-#include "global.h"
+#include "config.h"
 #include "VL53L1X.h"
 #include "SHT3x.h"
 #include "STM32L0.h"
@@ -33,7 +33,7 @@ class Sensor
     uint16_t getBatteryAsInt();
     uint16_t getOP1AsInt();
     uint16_t getOP2AsInt();
-    uint16_t getGas();
+    gas getGas();
 
     uint16_t range;
   

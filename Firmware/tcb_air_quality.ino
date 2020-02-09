@@ -1,7 +1,7 @@
 
 //iot-solutions-lora-bin-sensor
 
-#include "global.h"
+#include "config.h"
 #include "STM32L0.h"
 #include "Lora.h"
 #include "Timer.h"
@@ -16,6 +16,16 @@ Sensor sensor;
 Timer tRange; volatile bool bRange; 
 
 float ADCvalue = 0.0f;
+
+void cRange(){
+  STM32L0.wakeup();
+  bRange = true;
+}
+
+void startTimers(){
+   tRange.begin(READ_INTERVAL*1000 ,cRange); 
+}
+
 
 void setup( void ){
   
@@ -43,15 +53,6 @@ void setup( void ){
     
 }
 
-void startTimers(){
-   tRange.begin(READ_INTERVAL*1000 ,cRange); 
-}
-
-void cRange(){
-  STM32L0.wakeup();
-  bRange = true;
-}
-
 void loop( void ){ 
   if (bRange) {sensor.getRange();  bRange = false;}
   if (bRangeEvent) {
@@ -59,8 +60,8 @@ void loop( void ){
     bRangeEvent = false;
     
     txData txdata = sensor.transmit();
+    lora.tx(txdata.dataToSend,txdata.dataToSendIndex);
 
-    //lora.tx(txdata.dataToSend,txdata.dataToSendIndex);
   }
   
   #ifndef DEBUG

@@ -1,4 +1,4 @@
-#include "global.h"
+#include "config.h"
 #include "STM32L0.h"
 #include "TimerMillis.h"
 
