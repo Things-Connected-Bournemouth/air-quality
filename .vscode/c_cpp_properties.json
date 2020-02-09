@@ -3,6 +3,7 @@
         {
             "name": "Win32",
             "includePath": [
+<<<<<<< HEAD
                 "${workspaceFolder}\\**",
                 "C:\\Users\\mash_\\AppData\\Local\\Arduino15\\packages\\arduino\\tools\\arm-none-eabi-gcc\\4.8.3-2014q1\\arm-none-eabi\\include",
                 "C:\\Users\\mash_\\AppData\\Local\\Arduino15\\packages\\TleraCorp\\hardware\\stm32l0\\0.0.10\\**"
@@ -11,6 +12,14 @@
                 "_DEBUG",
                 "UNICODE",
                 "_UNICODE"
+=======
+                // change to your user path C:\\Users\\yourUserName
+                "C:\\Users\\mash_\\AppData\\Local\\Arduino15\\packages\\TleraCorp\\hardware\\stm32l0\\0.0.10\\**"
+            ],
+            "forcedInclude": [
+                // change to your user path C:\\Users\\yourUserName
+                "C:\\Users\\mash_\\AppData\\Local\\Arduino15\\packages\\TleraCorp\\hardware\\stm32l0\\0.0.10\\cores\\arduino\\Arduino.h"
+>>>>>>> 0a00a4a6124d2bcb89ab75b7bccb50e74d3ab62d
             ],
             "compilerPath": "C:\\Program Files\\LLVM\\bin\\clang.exe",
             "cStandard": "c11",

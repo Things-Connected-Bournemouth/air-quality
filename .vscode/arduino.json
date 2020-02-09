@@ -1,7 +1,11 @@
 {
     "board": "TleraCorp:stm32l0:Grasshopper-L082CZ",
     "configuration": "usb=cdc,dosfs=none,speed=32,opt=o3",
+<<<<<<< HEAD
     "sketch": "Firmware\\tcb_air_quality.ino",
+=======
+    "sketch": "Firmware\\LORAWAN_BASE_V5.ino",
+>>>>>>> 0a00a4a6124d2bcb89ab75b7bccb50e74d3ab62d
     "port": "COM3",
     "output": "../ArduinoOutput"
 }
